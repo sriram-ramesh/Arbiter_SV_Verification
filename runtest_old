@@ -1,0 +1,19 @@
+vlib work
+vmap work work
+
+vlog -coverAll -reportprogress 300 -work work +acc=bnrp ../DUT/*.v
+vlog -sv -reportprogress 300 -work work +acc=bnrp ../Enviro/*.sv  
+#vlog -sv -reportprogress 300 -work work +acc=bnrp ../TB/*.v  
+vsim -t ns -coverage  top
+view structure
+
+add wave -r -hex top/*
+
+
+run -all
+
+coverage report -file ccover_report.txt -byfile -select {s b c e f}
+
+fcover report -aggregated -comments -file fcover_report.txt -noa
+
+coverage report -file cov.txt -line -noannotate
